@@ -5,14 +5,20 @@ namespace Bbarbosa7\DesignPattern\Impostos;
 use Bbarbosa7\DesignPattern\Impostos\Imposto;
 use Bbarbosa7\DesignPattern\Orcamento;
 
-class Itdb implements Imposto
+class Itdb extends ImpostoComDuasAliquotas
 {
-    public function calculaImposto(Orcamento $orcamento): float
+    protected function deveAplicarTaxaMaxima(Orcamento $orcamento): bool
     {
-        if ($orcamento->valor > 300 && $orcamento->quantidadeItens > 3) {
-            return $orcamento->valor * 0.04;
-        }
+        return $orcamento->valor 300 && $orcamento->quantidadeItens > 3;
+    }
 
-        return $orcamento->valor * 0.025;
+    protected function calculaTaxaMaxima(Orcamento $orcamento): float
+    {
+        return $orcamento->valor * 0.03;
+    }
+
+    protected function calculaTaxaMinima(Orcamento $orcamento): float
+    {
+        return $orcamento->valor * 0.02;
     }
 }
